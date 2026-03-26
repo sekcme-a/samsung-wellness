@@ -1,0 +1,49 @@
+  {/* SECTION 1: HERO (당신의 웰니스 라이프) */}
+      {/* <section className="relative h-[90vh] md:h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1574680096145-d05b474e2158?q=80&w=2000"
+            className="w-full h-full object-cover scale-105 animate-subtle-zoom"
+            alt="Main Wellness"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-white"></div>
+        </div>
+        <div className="relative z-10 text-center text-white px-4">
+          <p className="text-blue-400 font-semibold tracking-widest mb-6 animate-fade-in">
+            SAMSUNG WELLNESS
+          </p>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] drop-shadow-2xl">
+            당신의 웰니스 라이프,
+            <br /> 삼성웰니스가 설계합니다.
+          </h1>
+        </div>
+      </section> */}
+
+
+
+       {/* SECTION 4: NUMBERS (신뢰의 지표) - 추가 섹션 1 */}
+      {/* <section className="py-32 bg-gray-900 text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-2xl font-medium text-gray-400 mb-20 uppercase tracking-[0.2em]">
+            Our Performance
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+            {[
+              { label: "운영 시설 수", value: "150+" },
+              { label: "전문 운영 인력", value: "850명" },
+              { label: "고객 만족도", value: "98%" },
+              { label: "업력", value: "15년" },
+            ].map((stat, i) => (
+              <div key={i} className="space-y-4">
+                <div className="text-5xl md:text-7xl font-bold tracking-tighter text-blue-500">
+                  {stat.value}
+                </div>
+                <div className="text-gray-400 text-lg font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+      </section> */}
