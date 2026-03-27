@@ -2,12 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link"; // ✅ Link 컴포넌트 추가
+import Link from "next/link";
 
-// Framer Motion을 적용한 Next.js Image 컴포넌트
 const MotionImage = motion(Image);
 
-// 애니메이션 프리셋
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   whileInView: { opacity: 1, y: 0 },
@@ -29,7 +27,6 @@ export default function BentoGrid() {
   return (
     <section className="py-32 px-6 bg-[#f5f5f7]">
       <div className="max-w-7xl mx-auto">
-        {/* 헤더 섹션 */}
         <motion.div {...fadeInUp} className="max-w-3xl mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-[1.15] break-keep tracking-tight">
             삼성웰니스는 독보적인 전문성으로 <br />
@@ -37,19 +34,20 @@ export default function BentoGrid() {
           </h2>
         </motion.div>
 
-        {/* 벤토 그리드 컨테이너 */}
         <motion.div
           variants={staggerContainer}
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
+          // h-auto md:h-[600px] 구조에서 자식 요소들이 높이를 가져야 함
           className="flex flex-col md:flex-row gap-4 h-auto md:h-[600px]"
         >
-          {/* 1. 좌측 메인: 커뮤니티 시설운영 (가장 큼) */}
+          {/* 1. 좌측 메인: 커뮤니티 시설운영 */}
           <Link href="/business/community" className="flex-1 contents">
             <motion.div
               variants={itemVariants}
-              className="flex-1 relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer"
+              // ✨ 중요: 모바일에서 높이가 없으면 fill 이미지가 안 보임. h-[400px] 추가
+              className="flex-1 relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer h-[400px] md:h-full"
             >
               <MotionImage
                 src="/images/home/bentogrid/1.webp"
@@ -70,13 +68,13 @@ export default function BentoGrid() {
             </motion.div>
           </Link>
 
-          {/* 2. 우측 컬럼 1: 피트니스(작게) + 안전관리(크게) */}
+          {/* 2. 우측 컬럼 1: 피트니스 + 안전관리 */}
           <div className="flex-[0.8] flex flex-col gap-4">
-            {/* 피트니스 센터운영 (Small) */}
             <Link href="/business/fitness" className="flex-[0.95] contents">
               <motion.div
                 variants={itemVariants}
-                className="w-full h-full relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer"
+                // ✨ h-[250px] md:h-full 추가
+                className="w-full relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer h-[250px] md:h-full"
               >
                 <MotionImage
                   src="/images/home/bentogrid/2.webp"
@@ -93,11 +91,11 @@ export default function BentoGrid() {
               </motion.div>
             </Link>
 
-            {/* 안전관리 (Large) */}
             <Link href="/business/safety" className="flex-[1.05] contents">
               <motion.div
                 variants={itemVariants}
-                className="w-full h-full relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer"
+                // ✨ h-[250px] md:h-full 추가
+                className="w-full relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer h-[250px] md:h-full"
               >
                 <MotionImage
                   src="/images/home/bentogrid/4.webp"
@@ -115,13 +113,13 @@ export default function BentoGrid() {
             </Link>
           </div>
 
-          {/* 3. 우측 컬럼 2: 수영장(크게) + 프로그램(작게) */}
+          {/* 3. 우측 컬럼 2: 수영장 + 프로그램 */}
           <div className="flex-[0.8] flex flex-col gap-4">
-            {/* 수영장 운영 (Large) */}
             <Link href="/business/pool" className="flex-[1.05] contents">
               <motion.div
                 variants={itemVariants}
-                className="w-full h-full relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer"
+                // ✨ h-[250px] md:h-full 추가
+                className="w-full relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer h-[250px] md:h-full"
               >
                 <MotionImage
                   src="/images/home/bentogrid/3.webp"
@@ -138,11 +136,11 @@ export default function BentoGrid() {
               </motion.div>
             </Link>
 
-            {/* 프로그램 운영 (Small) */}
             <Link href="/business/gx" className="flex-[0.95] contents">
               <motion.div
                 variants={itemVariants}
-                className="w-full h-full relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer"
+                // ✨ h-[250px] md:h-full 추가
+                className="w-full relative group rounded-[2.5rem] overflow-hidden shadow-sm bg-white cursor-pointer h-[250px] md:h-full"
               >
                 <MotionImage
                   src="/images/home/bentogrid/5.webp"
