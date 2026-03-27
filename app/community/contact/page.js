@@ -53,10 +53,12 @@ export default async function InquiryPage() {
     .eq("id", FORM_ID)
     .maybeSingle();
 
+  console.log(error);
   if (!formConfig) {
     return (
       <div className="p-10 text-center mt-42 mb-30">
         존재하지 않는 양식입니다.{FORM_ID}
+        {JSON.stringify(error)}
       </div>
     );
   }
