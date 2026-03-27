@@ -173,7 +173,7 @@ export async function generateMetadata({ searchParams }) {
 
 export default async function NoticePage({ searchParams }) {
   const supabase = await createClient();
-  const NOTICE_BOARD_ID = "1b5a75db-2feb-4e7d-bbfb-9df0f34bb407";
+  const NOTICE_BOARD_ID = "374a69c3-c48c-45e3-9820-5ae0309e325a";
   const postsPerPage = 10;
 
   // 현재 페이지 번호 (URL 쿼리스트링에서 가져옴, 없으면 1)
