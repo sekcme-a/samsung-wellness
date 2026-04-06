@@ -1,4 +1,3 @@
-// NoticeDetailClient.js (Client Component)
 "use client";
 
 import { useEffect } from "react";
@@ -12,9 +11,8 @@ import { Youtube } from "@tiptap/extension-youtube";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { FontFamily } from "@tiptap/extension-font-family";
 import ResizeImage from "tiptap-extension-resize-image";
-import { Calendar, User, Paperclip, List } from "lucide-react";
+import { Calendar, User, Paperclip, List, Download } from "lucide-react";
 
-// FontSize 익스텐션 (기존과 동일)
 const FontSize = Extension.create({
   name: "fontSize",
   addGlobalAttributes() {
@@ -40,7 +38,7 @@ const FontSize = Extension.create({
 export default function NoticeDetailClient({ post }) {
   const editor = useEditor({
     editable: false,
-    content: post.content, // 서버에서 받은 초기 데이터 삽입
+    content: post.content,
     extensions: [
       StarterKit,
       TextStyle,
@@ -56,29 +54,22 @@ export default function NoticeDetailClient({ post }) {
     },
   });
 
-  // 에디터가 로드된 후 콘텐츠 업데이트 (필요 시)
   useEffect(() => {
-    if (editor && post.content) {
-      editor.commands.setContent(post.content);
-    }
+    if (editor && post.content) editor.commands.setContent(post.content);
   }, [editor, post.content]);
 
   return (
-    <main className="min-h-screen pb-20">
+    <main className="min-h-screen pb-20 text-black">
       <Navbar />
-
       <section className="pt-32 px-4">
         <div className="max-w-5xl mx-auto">
-          {/* Breadcrumbs */}
+          {/* 상단 네비게이션 */}
           <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6 font-medium">
             <Link href="/" className="hover:text-black">
               Home
             </Link>
             <span>/</span>
-            <Link
-              href="/community/notice"
-              className="hover:text-black text-blue-600 font-bold"
-            >
+            <Link href="/community/notice" className="text-blue-600 font-bold">
               공지사항
             </Link>
           </nav>
@@ -88,36 +79,27 @@ export default function NoticeDetailClient({ post }) {
               <motion.h1
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 break-keep leading-snug"
+                className="text-2xl md:text-3xl font-bold mb-6"
               >
                 {post.title}
               </motion.h1>
-
-              <div className="flex flex-wrap items-center gap-y-2 gap-x-6 text-[13px] text-gray-500 border-t border-gray-50 pt-6">
+              <div className="flex flex-wrap items-center gap-x-6 text-[13px] text-gray-500 border-t pt-6">
                 <div className="flex items-center gap-1.5">
-                  <User className="w-4 h-4 text-gray-400" />
+                  <User className="w-4 h-4" />
                   <span className="font-semibold text-gray-700">
                     {post.profiles?.full_name || "관리자"}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4 text-gray-400" />
-                  <span>
-                    {new Date(post.created_at).toLocaleDateString("ko-KR", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
+                  <Calendar className="w-4 h-4" />
+                  <span>{new Date(post.created_at).toLocaleDateString()}</span>
                 </div>
               </div>
             </header>
 
-            <article className="px-6 py-12 md:px-10 border-t border-gray-100 min-h-[500px]">
-              {/* SEO를 위해 에디터가 로드되기 전에도 서버 데이터가 보일 수 있도록 처리 가능 */}
-              <div className="tiptap-content text-gray-800 leading-relaxed break-keep">
+            <article className="px-6 py-12 md:px-10 border-t border-gray-100 min-h-[400px]">
+              <div className="tiptap-content">
                 <EditorContent editor={editor} />
-                {/* 에디터 미로딩 시 보일 백업 (선택사항) */}
                 {!editor && (
                   <div
                     dangerouslySetInnerHTML={{ __html: post.content }}
@@ -127,23 +109,28 @@ export default function NoticeDetailClient({ post }) {
               </div>
             </article>
 
-            {/* 첨부파일 섹션 */}
-            {post.file_urls?.length > 0 && (
+            {/* 💡 첨부파일 섹션 (수정된 부분) */}
+            {post.attachments && post.attachments.length > 0 && (
               <div className="px-6 py-6 md:px-10 bg-gray-50 border-t border-gray-100">
-                <div className="flex items-start gap-4">
-                  <span className="flex items-center gap-1 text-[13px] font-bold text-gray-500 mt-1 uppercase tracking-tight">
-                    <Paperclip className="w-3.5 h-3.5" /> Attachments
-                  </span>
+                <div className="flex flex-col md:flex-row items-start gap-4">
+                  <div className="flex items-center gap-1.5 text-[13px] font-bold text-gray-500 mt-1 uppercase">
+                    <Paperclip className="w-4 h-4" /> 첨부파일 (
+                    {post.attachments.length})
+                  </div>
                   <div className="flex flex-wrap gap-2">
-                    {post.file_urls.map((url, i) => (
+                    {post.attachments.map((file, i) => (
                       <a
                         key={i}
-                        href={url}
+                        href={file.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-medium text-gray-700 hover:border-blue-400 hover:text-blue-600 transition-all shadow-sm"
+                        download={file.name}
+                        className="group flex items-center gap-3 px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-medium hover:border-blue-400 hover:text-blue-600 transition-all shadow-sm"
                       >
-                        {url.split("/").pop()}
+                        <span className="max-w-[200px] truncate">
+                          {file.name}
+                        </span>
+                        <Download className="w-3.5 h-3.5 text-gray-400 group-hover:text-blue-500" />
                       </a>
                     ))}
                   </div>
@@ -155,40 +142,22 @@ export default function NoticeDetailClient({ post }) {
           <div className="mt-8 flex justify-center">
             <Link
               href="/community/notice"
-              className="flex items-center gap-2 px-8 py-3 bg-white border border-gray-300 rounded-full text-sm font-bold text-gray-600 hover:bg-gray-900 hover:text-white transition-all"
+              className="flex items-center gap-2 px-8 py-3 bg-white border border-gray-300 rounded-full text-sm font-bold text-gray-600 hover:bg-black hover:text-white transition-all"
             >
-              <List className="w-4 h-4" /> 목록으로 돌아가기
+              <List className="w-4 h-4" /> 목록으로
             </Link>
           </div>
         </div>
       </section>
 
       <style jsx global>{`
-        .tiptap-content .prose {
-          font-size: 1.05rem;
-          color: #333;
-        }
-        .tiptap-content .prose p {
-          margin-bottom: 1.5rem;
-        }
         .tiptap-content .prose img {
           border-radius: 8px;
           margin: 2rem auto;
         }
-        .tiptap-content .prose ul {
-          list-style-type: disc !important;
-          padding-left: 1.5rem !important;
-        }
-        .tiptap-content .prose ol {
-          list-style-type: decimal !important;
-          padding-left: 1.5rem !important;
-        }
         .tiptap-content .prose a {
           color: #2563eb;
-
           text-decoration: underline;
-
-          font-weight: 500;
         }
       `}</style>
     </main>
