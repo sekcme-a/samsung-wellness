@@ -268,7 +268,7 @@ export async function generateMetadata({ params }) {
   if (!post) return { title: "게시글을 찾을 수 없습니다" };
 
   // 본문 요약 (Description용)
-  const description = post.content?.replace(/<[^>]*>/g, "").slice(0, 100);
+  const description = post.content?.replace(/<[^>]*>/g, "").slice(0, 45);
 
   return {
     title: `${post.title}`,
