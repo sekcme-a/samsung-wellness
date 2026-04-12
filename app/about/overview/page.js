@@ -143,7 +143,7 @@ export default function CompanyOverview() {
           className="max-w-2xl mx-auto"
         >
           <p className="text-gray-400 font-bold mb-8 tracking-widest uppercase text-xs">
-            Beyond the Excellence
+            Beyond t he Excellence
           </p>
           <h2 className="text-4xl font-bold text-gray-900 mb-12 break-keep">
             우리는 원칙을 지키며 <br />
