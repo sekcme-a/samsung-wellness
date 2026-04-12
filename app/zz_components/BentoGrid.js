@@ -59,7 +59,7 @@ export default function BentoGrid() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-10">
                 <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-                  커뮤니티 시설운영
+                  커뮤니티 시설 운영
                 </h3>
                 <p className="text-white/80 mt-2 font-medium">
                   주거 단지의 품격을 완성합니다.
