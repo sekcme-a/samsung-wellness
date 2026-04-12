@@ -4,7 +4,7 @@ export function GET() {
   const content = `
 User-agent: *
 Allow: /
-Sitemap: https://samsungwellness.com/sitemap.xml
+Sitemap: https://www.xn--9i1bp8xbkap3cd5j.kr/sitemap.xml
   `.trim();
 
   return new NextResponse(content, {
